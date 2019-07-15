@@ -53,16 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
         Observable<ArrayList<Notice>> noticeListCall = getNoticeDataService.getNoticeDataUsingRxJava();
 
-        Observable<ArrayList<Notice>> noticeListCall2 = getNoticeDataService.getNoticeDataUsingRxJava();
+        //Observable<ArrayList<Notice>> noticeListCall2 = getNoticeDataService.getNoticeDataUsingRxJava();
 
-        Observable.merge(noticeListCall, noticeListCall2)
+        /*Observable.merge(noticeListCall, noticeListCall2)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::generateNoticeList, this::handleError);
-
-        /*noticeListCall.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::generateNoticeList, this::handleError);*/
+
+        noticeListCall.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::generateNoticeList, this::handleError);
     }
 
     private void handleError(Throwable t) {
